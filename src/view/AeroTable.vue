@@ -122,7 +122,7 @@ export default {
     methods: {
         getAeroData() {
             axios
-                .get(`${'https://bot.uzairports.com'}/api/fids?airport_code=TAS&flight_type=DEPARTURE`)
+                .get("https://bot.uzairports.com/api/fids?airport_code=TAS&flight_type=DEPARTURE")
                 .then(response => {
                     this.air_lists = response.data.flights;
                 });
