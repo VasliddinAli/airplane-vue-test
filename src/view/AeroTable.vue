@@ -19,22 +19,22 @@
             <tbody>
                 <tr>
                     <td></td>
-                    <td><n-select v-model:value="filter.movement" :options="options" placeholder="Тип"
+                    <td style="width: 100px;"><n-select v-model:value="filter.movement" :options="options" placeholder="Тип"
                             :consistent-menu-width="false" /></td>
-                    <td><n-input v-model:value="filter.aircompany" type="text" placeholder="Рейс" /></td>
-                    <td><n-input v-model:value="filter.airport" type="text" placeholder="Аэропорт" /></td>
-                    <td><n-input v-model:value="filter.aircrafttype" type="text" placeholder="BC" /></td>
-                    <td><n-input v-model:value="filter.plan" type="text" placeholder="План" /></td>
-                    <td><n-input v-model:value="filter.sched" type="text" placeholder="Расписание" /></td>
-                    <td><n-input v-model:value="filter.fact" type="text" placeholder="Фактический" /></td>
-                    <td><n-input v-model:value="filter.flight_status" type="text" placeholder="Статус" /></td>
-                    <td><n-input v-model:value="filter.check_in" type="text" placeholder="Стойки/Вылет" /></td>
+                    <td style="width: 90px;"><n-input v-model:value="filter.aircompany" type="text" placeholder="Рейс" /></td>
+                    <td style="width: 90px;"><n-input v-model:value="filter.airport" type="text" placeholder="Аэропорт" /></td>
+                    <td style="width: 90px;"><n-input v-model:value="filter.aircrafttype" type="text" placeholder="BC" /></td>
+                    <td style="min-width: 150px;"><n-input v-model:value="filter.plan" type="text" placeholder="План" /></td>
+                    <td style="min-width: 150px;"><n-input v-model:value="filter.sched" type="text" placeholder="Расписание" /></td>
+                    <td style="min-width: 150px;"><n-input v-model:value="filter.fact" type="text" placeholder="Фактический" /></td>
+                    <td style="width: 100px;"><n-input v-model:value="filter.flight_status" type="text" placeholder="Статус" /></td>
+                    <td style="min-width: 150px;"><n-input v-model:value="filter.check_in" type="text" placeholder="Стойки/Вылет" /></td>
                     <td></td>
                 </tr>
                 <tr v-for="(item, index) in paginatedList" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ item.movement == 'DEPARTURE' ? 'Uchib ketish' : 'Uchib kelish' }}</td>
-                    <td>{{ item.aircompany }}</td>
+                    <td>{{ item.aircompany }} {{ item.flightnumber }}</td>
                     <td>{{ item.airport }}</td>
                     <td>{{ item.aircrafttype }}</td>
                     <td>{{ item.plan }}</td>
