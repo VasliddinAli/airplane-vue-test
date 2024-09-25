@@ -1,8 +1,9 @@
 <template>
     <n-card title="Airplane list">
-        <n-table :single-line="false" size="small" :pagination="pagination">
+        <n-table :single-line="false" size="small" :pagination="pagination" :striped="true">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Тип</th>
                     <th>Рейс</th>
                     <th>Аэропорт</th>
@@ -17,19 +18,21 @@
             </thead>
             <tbody>
                 <tr>
+                    <td></td>
                     <td><n-select v-model:value="filter.movement" :options="options" placeholder="Тип"
                             :consistent-menu-width="false" /></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><n-input v-model:value="filter.aircompany" type="text" placeholder="Рейс" /></td>
+                    <td><n-input v-model:value="filter.airport" type="text" placeholder="Аэропорт" /></td>
+                    <td><n-input v-model:value="filter.aircrafttype" type="text" placeholder="BC" /></td>
                     <td><n-input v-model:value="filter.plan" type="text" placeholder="План" /></td>
                     <td><n-input v-model:value="filter.sched" type="text" placeholder="Расписание" /></td>
                     <td><n-input v-model:value="filter.fact" type="text" placeholder="Фактический" /></td>
-                    <td></td>
-                    <td></td>
+                    <td><n-input v-model:value="filter.flight_status" type="text" placeholder="Статус" /></td>
+                    <td><n-input v-model:value="filter.check_in" type="text" placeholder="Стойки/Вылет" /></td>
                     <td></td>
                 </tr>
                 <tr v-for="(item, index) in paginatedList" :key="index">
+                    <td>{{ index + 1 }}</td>
                     <td>{{ item.movement == 'DEPARTURE' ? 'Uchib ketish' : 'Uchib kelish' }}</td>
                     <td>{{ item.aircompany }}</td>
                     <td>{{ item.airport }}</td>
@@ -58,18 +61,27 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            air_lists: null,
+            air_lists: [],
             page: 1,
             pagination: {
-                pageSize: 50
+                pageSize: 20
             },
             filter: {
-                movement: null,
+                movement: "",
+                aircompany: null,
+                airport: null,
+                aircrafttype: null,
                 plan: null,
                 sched: null,
                 fact: null,
+                flight_status: null,
+                check_in: null,
             },
             options: [
+                {
+                    label: 'Hammasi',
+                    value: '',
+                },
                 {
                     label: 'Uchib ketish',
                     value: 'DEPARTURE',
@@ -90,11 +102,16 @@ export default {
     computed: {
         filteredList() {
             return this.air_lists?.filter(item => {
-                const filterMovement = this.filter.movement ? item.movement?.toLowerCase().includes(this.filter.movement.toLowerCase()) : true;
-                const filterPlan = this.filter.plan ? item.plan?.toLowerCase().includes(this.filter.plan.toLowerCase()) : true;
-                const filterSched = this.filter.sched ? item.sched?.toLowerCase().includes(this.filter.sched.toLowerCase()) : true;
-                const filterFact = this.filter.fact ? item.fact?.toLowerCase().includes(this.filter.fact.toLowerCase()) : true;
-                return filterMovement && filterPlan && filterSched && filterFact;
+                const movement = this.filter.movement ? item.movement?.toLowerCase().includes(this.filter.movement.toLowerCase()) : true;
+                const aircompany = this.filter.aircompany ? item.aircompany?.toLowerCase().includes(this.filter.aircompany.toLowerCase()) : true;
+                const airport = this.filter.airport ? item.airport?.toLowerCase().includes(this.filter.airport.toLowerCase()) : true;
+                const aircrafttype = this.filter.aircrafttype ? item.aircrafttype?.toLowerCase().includes(this.filter.aircrafttype.toLowerCase()) : true;
+                const plan = this.filter.plan ? item.plan?.toLowerCase().includes(this.filter.plan.toLowerCase()) : true;
+                const sched = this.filter.sched ? item.sched?.toLowerCase().includes(this.filter.sched.toLowerCase()) : true;
+                const fact = this.filter.fact ? item.fact?.toLowerCase().includes(this.filter.fact.toLowerCase()) : true;
+                const flight_status = this.filter.flight_status ? item.flight_status?.toLowerCase().includes(this.filter.flight_status.toLowerCase()) : true;
+                const check_in = this.filter.check_in ? item.check_in?.toLowerCase().includes(this.filter.check_in.toLowerCase()) : true;
+                return movement && aircompany && airport && aircrafttype && plan && sched && fact && flight_status && check_in;
             }) || [];
         },
         paginatedList() {
